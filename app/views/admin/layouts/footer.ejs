@@ -1,0 +1,79 @@
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                2024 © ĐẶT SÂN BÓNG.
+            </div>
+            <div class="col-sm-6">
+                <div class="text-sm-right d-none d-sm-block">
+                    Trang chỉ dành cho quản trị sân bóng
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</div>
+<!-- end main content-->
+
+</div>
+<!-- END layout-wrapper -->
+
+<!-- Overlay-->
+<div class="menu-overlay"></div>
+
+
+<!-- jQuery  -->
+<script src="/public/admin/js/jquery.min.js"></script>
+<script src="/public/admin/js/bootstrap.bundle.min.js"></script>
+<script src="/public/admin/js/metismenu.min.js"></script>
+<script src="/public/admin/js/waves.js"></script>
+<script src="/public/admin/js/simplebar.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<!-- Morris Js-->
+<script src="/public/admin/plugins/morris-js/morris.min.js"></script>
+<!-- Raphael Js-->
+<script src="/public/admin/plugins/raphael/raphael.min.js"></script>
+<!-- Morris Custom Js-->
+<script src="/public/admin/pages/dashboard-demo.js"></script>
+<!-- App js -->
+<script src="/public/admin/js/theme.js"></script>
+<script src="/public/admin/pages/datatables-demo.js"></script>
+<script src="/public/admin/pages/chartjs-demo.js"></script>
+<!-- App js -->
+<script src="/public/admin/assets/js/theme.js"></script>
+
+</body>
+
+</html>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+<% if(locals.error){  %>
+    <script>
+        $(document).ready(function(){
+            toastr.options = {
+                closeButton: true,
+                progressBar: true,
+                positionClass: 'toast-top-right', // Vị trí hiển thị
+                timeOut: 5000 // Thời gian tự động đóng
+            };
+            toastr.error('<%= error %>', 'Thất Bại');
+        });
+    </script>
+<% } %>
+
+<% if(locals.success){  %>
+    <script>
+        $(document).ready(function(){
+            toastr.options = {
+                closeButton: true,
+                progressBar: true,
+                positionClass: 'toast-top-right', // Vị trí hiển thị
+                timeOut: 5000 // Thời gian tự động đóng
+            };
+            toastr.success('<%= success %>', 'Thành Công');
+        });
+    </script>
+<% } %>

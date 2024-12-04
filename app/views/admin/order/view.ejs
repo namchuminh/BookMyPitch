@@ -1,0 +1,88 @@
+<%- include('../layouts/header.ejs') %>
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="mb-0 font-size-18">Đặt Sân</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="/admin">Trang Chủ</a></li>
+                            <li class="breadcrumb-item"><a href="/admin/order/">Đặt Sân</a></li>
+                            <li class="breadcrumb-item active">Xem Chi Tiết</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Thông Đặt Sân chi tiết</h4>
+                    <div id="basic-datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form method="POST" enctype="multipart/form-data">
+                                            <div class="form-group">
+                                                <label for="simpleinput">Mã Đặt Sân</label>
+                                                <input type="text" id="simpleinput" class="form-control" value="<%= order.dataValues.Code %>" disabled>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="simpleinput">Tên Người Đặt</label>
+                                                <input type="text" id="simpleinput" class="form-control" value="<%= order.dataValues.FullName %>" disabled>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="simpleinput">Email Nguời Đặt</label>
+                                                <input type="text" id="simpleinput" class="form-control" value="<%= order.dataValues.Email %>" disabled>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="simpleinput">Số Điện Thoại Nguời Đặt</label>
+                                                <input type="text" id="simpleinput" class="form-control" value="<%= order.dataValues.Phone %>" disabled>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="simpleinput">Ngày Đặt Sân</label>
+                                                <input type="date" id="simpleinput" class="form-control" value="<%= order.dataValues.Date %>" disabled>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="simpleinput">Thời Gian Đặt</label>
+                                                <input type="time" id="simpleinput" class="form-control" value="<%= order.dataValues.Time %>" disabled>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="simpleinput">Tổng Tiền</label>
+                                                <input type="text" id="simpleinput" class="form-control" value="<%= order.dataValues.Total.toLocaleString() %> VND" disabled>
+                                            </div>
+
+                                            <a href="/admin/order/" class="btn btn-secondary waves-effect waves-light">Quay Lại</a>
+                                        </form>
+                                    </div>
+                                    <!-- end card-body-->
+                                </div>
+                                <!-- end card -->
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div> <!-- end card body-->
+            </div> <!-- end card -->
+        </div>
+    </div>
+</div>
+<style>
+    .form-control:disabled, .form-control[readonly] {
+        background: white;
+        opacity: 1;
+    }
+</style>
+<%- include('../layouts/footer.ejs') %>

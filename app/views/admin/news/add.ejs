@@ -1,0 +1,152 @@
+<%- include('../layouts/header.ejs') %>
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-0 font-size-18">Tin Tức</h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="/admin/">Trang Chủ</a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="/admin/news/">Tin
+                                        Tức</a></li>
+                                <li class="breadcrumb-item active">Thêm Tin Tức</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Nhập nội dung tin tức</h4>
+                        <div id="basic-datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <form method="POST" enctype="multipart/form-data">
+                                                <div class="form-group">
+                                                    <label for="simpleinput">Tiêu Đề</label>
+                                                    <input type="text" id="simpleinput" class="form-control tensanpham"
+                                                        placeholder="Tiêu đề" required name="tieude"
+                                                        value="">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="simpleinput">Chuyên Mục</label>
+                                                    <select class="form-control" name="chuyenmuc">
+                                                        <% category.map(item => { %>
+                                                            <option value="<%= item.Id %>"><%= item.Name %></option>
+                                                        <% }) %>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="duongdan">Đường Dẫn</label>
+                                                    <span id="taoduongdan"
+                                                        style="float: right; cursor: pointer; text-decoration: underline;">Tạo
+                                                        Tự Động</span>
+                                                    <input type="text" id="duongdan" class="form-control"
+                                                        placeholder="Đường dẫn tin tức..." required name="duongdan"
+                                                        value="">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>Ảnh Chính</label>
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" name="anhchinh"
+                                                            id="customFile">
+                                                        <label class="custom-file-label" for="customFile">Chọn
+                                                            Ảnh</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="simpleinput">Thẻ</label>
+                                                    <input type="text" id="simpleinput" class="form-control"
+                                                        placeholder="Thẻ cách bởi dấu phẩy..." required name="the"
+                                                        value="">
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlTextarea1">Nội Dung</label>
+                                                    <textarea required class="form-control" id="myTextarea"
+                                                        name="noidung">
+                                                </textarea>
+                                                </div>
+                                                <a href="/admin/news/"
+                                                    class="btn btn-secondary waves-effect waves-light">Quay Lại</a>
+                                                <button type="submit"
+                                                    class="btn btn-primary waves-effect waves-light">Thêm
+                                                    Tin Tức</button>
+                                            </form>
+                                        </div>
+                                        <!-- end card-body-->
+                                    </div>
+                                    <!-- end card -->
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div> <!-- end card body-->
+                </div> <!-- end card -->
+            </div><!-- end col-->
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="/public/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('myTextarea', {
+            height: '500px'
+        });
+    </script>
+    <script>
+        function createSlug(str) {
+            // Chuyển đổi tiếng Việt thành dạng slug
+            str = str.toLowerCase().trim();
+            str = str.replace(/\s+/g, '-'); // Thay thế khoảng trắng bằng dấu gạch ngang
+            str = convertVietnameseToSlug(str); // Xử lý các dấu tiếng Việt
+
+            return str;
+        }
+
+        function convertVietnameseToSlug(str) {
+            var slug = str;
+
+            // Xử lý dấu tiếng Việt
+            slug = slug.replace(/[áàảãạăắằẳẵặâấầẩẫậ]/g, 'a');
+            slug = slug.replace(/[éèẻẽẹêếềểễệ]/g, 'e');
+            slug = slug.replace(/[íìỉĩị]/g, 'i');
+            slug = slug.replace(/[óòỏõọôốồổỗộơớờởỡợ]/g, 'o');
+            slug = slug.replace(/[úùủũụưứừửữự]/g, 'u');
+            slug = slug.replace(/[ýỳỷỹỵ]/g, 'y');
+            slug = slug.replace(/đ/g, 'd');
+
+            return slug;
+        }
+
+        $(document).ready(function () {
+            $('#taoduongdan').click(function () {
+                if ($(".tensanpham").val() == "") {
+                    alert("Vui lòng nhập tiêu đề bài viết")
+                } else {
+                    $("#duongdan").val(createSlug($(".tensanpham").val()))
+                }
+            })
+
+            $('.close').click(function () {
+                $(".toast").attr("style", "display: none;")
+            })
+        });
+    </script>
+    
+    <%- include('../layouts/footer.ejs') %>

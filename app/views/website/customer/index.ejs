@@ -1,0 +1,103 @@
+<%- include('../layouts/header.ejs') %>
+    <link rel="stylesheet" href="/public/website/css/contacts.min.css" />
+
+    <header class="page">
+        <div class="container">
+            <ul class="breadcrumbs d-flex flex-wrap align-content-center">
+                <li class="list-item">
+                    <a class="link" href="/">Trang Chủ</a>
+                </li>
+
+                <li class="list-item">
+                    <a class="link" href="/khach-hang/">Khách Hàng</a>
+                </li>
+            </ul>
+            <h1 class="page_title">Khách Hàng</h1>
+        </div>
+    </header>
+
+    <main>
+        <section class="contacts_main section" style="padding: 50px 0;">
+            <div class="container d-xl-flex align-items-center">
+                <div class="col-xl-12 aos-init aos-animate" data-aos="fade-up" style="background: unset;">
+                    <div class="contacts_info-main">
+                        <div class="contacts_info-main_block d-sm-flex align-items-start">
+                            <form class="contacts_form form d-sm-flex flex-wrap justify-content-between"
+                                style="width: 100%;"
+                                action="/khach-hang/update/" method="post">
+                                <div class="field-wrapper">
+                                    <label class="label" for="feedbackName">
+                                        <i class="icon-user icon" style="margin-right: 0px;top: 0px;"></i>
+                                    </label>
+                                    <input class="field required" id="feedbackName" type="text" name="name" placeholder="Họ tên"
+                                        value="<%= name %>">
+                                </div>
+                                <div class="field-wrapper">
+                                    <label class="label" for="feedbackEmail">
+                                        <i class="icon-phone icon" style="margin-right: 0px;top: 0px;"></i>
+                                    </label>
+                                    <input class="field required" id="feedbackName" type="text" name="phone" placeholder="Số điện thoại"
+                                        value="<%= phone %>">
+                                </div>
+                                <div class="field-wrapper">
+                                    <label class="label" for="feedbackEmail">
+                                        <i class="icon-email icon" style="margin-right: 0px;top: 0px;"></i>
+                                    </label>
+                                    <input class="field required" id="feedbackName" type="text" name="email" placeholder="Email"
+                                        value="<%= email %>">
+                                </div>
+                                <div class="field-wrapper">
+                                    <label class="label" for="feedbackEmail">
+                                        <i class="icon-user icon" style="margin-right: 0px;top: 0px;"></i>
+                                    </label>
+                                    <input class="field required" id="feedbackName" type="text" name="username" placeholder="Tài khoản"
+                                        value="<%= username %>" disabled="">
+                                </div>
+                                <div class="field-wrapper">
+                                    <label class="label" for="feedbackEmail">
+                                        <i class="icon-user icon" style="margin-right: 0px;top: 0px;"></i>
+                                    </label>
+                                    <input class="field required" id="feedbackName" type="password" name="old_password" placeholder="Nhập mật khẩu cũ">
+                                    <p class="mt-2" style="color: red;">
+                                        <% if(errorOld != ""){ %>
+                                            <%= errorOld %>
+                                        <% } %>
+                                    </p>
+                                </div>
+                                <div class="field-wrapper">
+                                    <label class="label" for="feedbackEmail">
+                                        <i class="icon-user icon" style="margin-right: 0px;top: 0px;"></i>
+                                    </label>
+                                    <input class="field required" id="feedbackName" type="password" name="password" placeholder="Nhập mật khẩu mới">
+                                    <p class="mt-2" style="color: red;">
+                                        <% if(errorPassword != ""){ %>
+                                            <%= errorPassword %>
+                                        <% } %>
+                                    </p>
+                                </div>
+                                <div class="field-wrapper">
+                                    <label class="label" for="feedbackEmail">
+                                        <i class="icon-user icon" style="margin-right: 0px;top: 0px;"></i>
+                                    </label>
+                                    <input class="field required" id="feedbackName" type="password" name="password2" placeholder="Xác nhận mật khẩu">
+                                    <p class="mt-2" style="color: red;">
+                                        <% if(errorPassword2 != ""){ %>
+                                            <%= errorPassword2 %>
+                                        <% } %>
+                                    </p>
+                                </div>
+                                <button class="btn theme-element theme-element--accent" type="submit">Cập Nhật</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <style>
+        .contacts_form .field-wrapper{
+            width: 100%;
+        }
+    </style>
+    <%- include('../layouts/footer.ejs') %>

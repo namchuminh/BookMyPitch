@@ -1,0 +1,52 @@
+<%- include('../layouts/header.ejs') %>
+<header class="page">
+    <div class="container">
+        <ul class="breadcrumbs d-flex flex-wrap align-content-center">
+            <li class="list-item">
+                <a class="link" href="/">Trang Chủ</a>
+            </li>
+
+            <li class="list-item">
+                <a class="link" href="/dang-nhap/">Đăng Nhập</a>
+            </li>
+        </ul>
+        <h1 class="page_title">Đăng nhập</h1>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        
+        <section class="contacts_secondary section" style="padding: 60px 0;">
+            <div class="contacts_secondary-form aos-init aos-animate" data-aos="fade-up">
+                <div class="contacts aos-init aos-animate" data-aos="fade-up">
+                    <form class="contacts_form form d-sm-flex flex-wrap justify-content-between" method="POST">
+                        <% if(locals.error){  %>
+                            <span style="width: 100%; text-align: center; color: rgb(255, 0, 0); font-weight: 500; margin-bottom: 20px;"><i><%= error %></i></span>
+                        <% } %>
+                        
+                        <div class="field-wrapper" style="width: 100%;">
+                            <label class="label" for="feedbackName">
+                                <i class="icon-user icon"></i>
+                            </label>
+                            <input class="field required" id="feedbackName" type="text" name="Username" placeholder="Tài khoản">
+                        </div>
+                        <div class="field-wrapper" style="width: 100%;">
+                            <label class="label" for="feedbackName">
+                                <i class="icon-user icon"></i>
+                            </label>
+                            <input class="field required" id="feedbackName" type="password" name="Password" placeholder="Mật khẩu">
+                        </div>
+                        <button class="btn theme-element theme-element--accent" type="submit" style="width: 100%; margin-top: 0px; margin-bottom: 30px;">ĐĂNG NHẬP</button>
+                        <span style="width: 100%; text-align: center; color: black; font-weight: 500;">Chưa có tài khoản? <a href="/khach-hang/dang-ky/">ĐĂNG KÝ NGAY</a></span>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+</main>
+
+
+<%- include('../layouts/footer.ejs') %>
+

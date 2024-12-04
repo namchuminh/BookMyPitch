@@ -1,0 +1,83 @@
+<%- include('../layouts/header.ejs') %>
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="mb-0 font-size-18">Liên Hệ</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="/admin">Trang Chủ</a></li>
+                            <li class="breadcrumb-item active">Liên Hệ</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Danh sách liên hệ</h4>
+                    <div id="basic-datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                            	<div class="table-responsive">
+                                    <table class="table mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th tabindex="0" aria-controls="basic-datatable"
+                                                rowspan="1" colspan="1"
+                                                >Tên Khách Hàng</th>
+	                                            <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+	                                                colspan="1"
+	                                                >Số Điện Thoại</th>
+	                                            <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+	                                                colspan="1"
+	                                                >Thời Gian</th>
+	                                            <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+	                                                colspan="1"
+	                                                >Xem Chi Tiết
+	                                            </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% contactList.forEach(function(contact) { %>
+                                                <tr role="row" class="odd">
+                                                    <td style="white-space: unset;"><b><%= contact.customer.FullName %></b></td>
+    
+                                                    <td style="white-space: unset;"><b><%= contact.customer.Phone %></b></td>
+    
+                                                    <td><%= contact.created %></td>
+        
+                                                    <td><a class="btn btn-primary" href="/admin/contact/view/<%= contact.Id %>/"><i class="bx bx-message-dots"></i> XEM CHI TIẾT</a> </td>
+                                                </tr>
+                                            <% }); %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="dataTables_paginate paging_simple_numbers" id="basic-datatable_paginate">
+                                    <ul class="pagination pagination-rounded">
+                                        <% for (let i = 1; i <= totalPages; i++) { %>
+                                       	    <li style="margin-right: 5px;" class="paginate_button page-item"><a href="/admin/contact/?page=<%= i %>" class="page-link"><%= i %></a></li>
+                                        <% } %>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- end card body-->
+            </div> <!-- end card -->
+        </div><!-- end col-->
+    </div>
+</div>
+
+<%- include('../layouts/footer.ejs') %>

@@ -1,0 +1,191 @@
+<%- include('../layouts/header.ejs') %>
+    <!-- single room content start -->
+    <main class="rooms section" style="padding-top: 0px;">
+        <div class="container">
+            <!-- Điều khoản đăng ký -->
+            <section class="terms">
+                <h2>Điều Khoản Đăng Ký Làm Chủ Sân</h2>
+                <ul class="terms-list">
+                    <li>1. Chủ sân phải cung cấp đầy đủ thông tin cá nhân và giấy phép kinh doanh hợp lệ.</li>
+                    <li>2. Chỉ đăng ký được tối đa 5 sân tại cùng một thời điểm.</li>
+                    <li>3. Chủ sân có trách nhiệm cập nhật thông tin sân thường xuyên.</li>
+                    <li>4. Phí đăng ký làm chủ sân là cố định, không hoàn lại.</li>
+                    <li>5. Hợp đồng được gia hạn tự động theo chu kỳ một tháng.</li>
+                </ul>
+            </section>
+
+            <!-- Thông tin liên hệ admin -->
+            <section class="contact-admin">
+                <h2>Thông Tin Liên Hệ Admin</h2>
+                <ul class="contact-list">
+                    <li><strong>Email:</strong> <a href="mailto:admin@example.com">admin@example.com</a></li>
+                    <li><strong>Số điện thoại:</strong> <a href="tel:+84987654321">(+84) 987 654 321</a></li>
+                    <li><strong>Địa chỉ:</strong> Số 123, Đường ABC, Quận XYZ, TP. Hà Nội</li>
+                </ul>
+            </section>
+
+            <!-- Gói làm chủ sân -->
+            <section class="pricing">
+                <h2>Gói Làm Chủ Sân</h2>
+                <div class="pricing-table">
+                    <div class="pricing-card">
+                        <h3>Gói 1 Tháng</h3>
+                        <p><strong>Giá:</strong> 1.000.000 VNĐ</p>
+                        <p><strong>Quyền lợi:</strong></p>
+                        <ul>
+                            <li>Quản lý không giới hạn sân bóng.</li>
+                            <li>Hỗ trợ quảng cáo sân trên hệ thống.</li>
+                            <li>Ưu tiên hiển thị trong danh sách tìm kiếm.</li>
+                        </ul>
+                        <p><strong>Lưu ý:</strong></p>
+                        <ul>
+                            <li>QTV sẽ liên hệ khi bạn đăng ký chủ sân.</li>
+                            <li>QTV sẽ thu tiền chủ sân vào đầu tháng.</li>
+                            <li>QTV sẽ hủy chủ sân nếu chủ sân không thanh toán.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Nút đăng ký -->
+            <section class="register">
+                <% if(customer.IsOwner == -1){ %>
+                    <a href="#" class="btn theme-element theme-element--accent" style="display: flex;">Đang Chờ QTV Duyệt!</a>
+                <% }else{ %>
+                    <a href="/khach-hang/dang-ky-chu-san/gui-yeu-cau" class="btn theme-element theme-element--accent" style="display: flex;">Đăng Ký Làm Chủ Sân</a>
+                <% } %>
+            </section>
+        </div>
+    </main>
+
+    <style>
+        /* Tạo kiểu cho toàn bộ trang */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Định dạng cho phần tiêu đề của trang */
+        .page_title {
+            font-size: 2em;
+            margin-top: 30px;
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        /* Định dạng cho các phần của hợp đồng */
+        section {
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Tiêu đề của từng phần */
+        section h2 {
+            font-size: 1.5em;
+            color: #2c3e50;
+            border-bottom: 2px solid #2980b9;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Liệt kê các điều khoản với kiểu văn bản dễ đọc */
+        .terms-list {
+            list-style-type: decimal;
+            padding-left: 20px;
+        }
+
+        .terms-list li {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        /* Định dạng cho phần thông tin liên hệ của admin */
+        .contact-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .contact-list li {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .contact-list a {
+            color: #2980b9;
+            text-decoration: none;
+        }
+
+        .contact-list a:hover {
+            text-decoration: underline;
+        }
+
+        /* Định dạng cho phần gói làm chủ sân */
+        .pricing-table {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .pricing-card {
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            padding: 20px;
+            flex: 1;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.3em;
+            color: #2980b9;
+            margin-bottom: 10px;
+        }
+
+        .pricing-card p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .pricing-card ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .pricing-card ul li {
+            margin-bottom: 10px;
+        }
+
+        /* Định dạng cho phần nút đăng ký */
+        .register {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .register .btn {
+            background-color: #2980b9;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .register .btn:hover {
+            background-color: #3498db;
+        }
+
+        /* Tạo hiệu ứng hover cho các nút */
+        .register .btn:focus {
+            outline: none;
+        }
+    </style>
+    <%- include('../layouts/footer.ejs') %>

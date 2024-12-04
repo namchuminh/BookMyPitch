@@ -1,0 +1,393 @@
+<%- include('../layouts/header.ejs') %>
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="mb-0 font-size-18">Đặt Sân</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="/admin">Trang Chủ</a></li>
+                            <li class="breadcrumb-item active">Đặt Sân</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Thông tin đặt sân</h4>
+                    <div id="basic-datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                            	<div class="table-responsive">
+                                    <table class="table mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th tabindex="0" aria-controls="basic-datatable"
+                                                rowspan="1" colspan="1"
+                                                >Hình Ảnh</th>
+	                                            <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+	                                                colspan="1"
+	                                                >Tên Sân</th>
+                                                <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+	                                                colspan="1"
+	                                                >Người Đặt 
+	                                            </th>
+                                                <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+	                                                colspan="1"
+	                                                >Tổng Tiền
+	                                            </th>
+                                                <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+	                                                colspan="1"
+	                                                >Trạng Thái
+	                                            </th>
+                                                <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+	                                                colspan="1"
+	                                                >Thanh Toán
+	                                            </th>
+                                                <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+	                                                colspan="1"
+	                                                >Hành Động
+	                                            </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% orderList.forEach(function(order) { %>
+                                                <tr role="row" class="odd">
+                                                    <td style="white-space: unset;"><img style="image-rendering: optimizeQuality;" src="<%= order.pitch.Avatar %>" width="100" height="100"></td>
+    
+                                                    <td style="white-space: unset;"><b><%= order.pitch.Name %></b></td>
+    
+                                                    <td><%= order.FullName %></td>
+
+                                                    <td><%= order.Total.toLocaleString() %> VND</td>
+
+                                                    <td>
+                                                        <% if(order.StatusOrder == 1){ %>
+                                                            <a class="btn btn-secondary" href="/admin/order/<%= order.Id %>/action/2/">Duyệt Đặt Sân</a>
+                                                        <% }else if(order.StatusOrder == 2){ %>
+                                                            <a class="btn btn-info" href="/admin/order/<%= order.Id %>/action/3/">Chuẩn Bị Sân</a>
+                                                        <% }else if(order.StatusOrder == 3){ %>
+                                                            <a class="btn btn-primary" href="/admin/order/<%= order.Id %>/action/4/">Đã Trả Sân</a>
+                                                        <% }else if(order.StatusOrder == 4){ %>
+                                                            Đã trả sân
+                                                        <% }else if(order.StatusOrder == 0){ %>
+                                                            Đã hủy sân
+                                                        <% } %>
+                                                        <% if(order.StatusOrder == 1 || order.StatusOrder == 2){ %>
+                                                            <br>
+                                                            <br>
+                                                            <a class="btn btn-danger" href="/admin/order/<%= order.Id %>/action/0/">Hủy Đặt Sân</a>
+                                                        <% } %>
+                                                    </td>
+                                                    <td>
+                                                        <% if((order.StatusPay == 0) && (order.StatusOrder == 0)){ %>
+                                                            Không được phép
+                                                        <% } else { %>
+                                                            <% if(order.StatusPay == 0){ %>
+                                                                <a class="btn btn-warning" href="/admin/order/<%= order.Id %>/paid/1/">Xác Nhận Thanh Toán</a>
+                                                            <% }else if(order.StatusPay == 1){ %>
+                                                                <% if(order.StatusOrder == 0){ %>
+                                                                    <a class="btn btn-warning" href="/admin/order/<%= order.Id %>/paid/2/">Xác Nhận Hoàn Tiền</a>
+                                                                <% }else{ %>
+                                                                    Đã Thanh Toán <p data-id="<%= order.Id %>" style="cursor: pointer; font-weight: bold; color: blueviolet;" onclick="printInvoice(this)">(In Hóa Đơn)</p>
+                                                                <% } %>
+                                                            <% }else if(order.StatusPay == 2){ %>
+                                                                Đã xác nhận hoàn tiền
+                                                            <% } %>
+                                                        <% } %>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-primary" href="/admin/order/<%= order.Id %>/">Xem Chi Tiết</a>
+                                                    </td>
+                                                </tr>
+                                            <% }); %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="dataTables_paginate paging_simple_numbers" id="basic-datatable_paginate">
+                                    <ul class="pagination pagination-rounded">
+                                        <% for (let i = 1; i <= totalPages; i++) { %>
+                                       	    <li style="margin-right: 5px;" class="paginate_button page-item"><a href="/admin/order/?page=<%= i %>" class="page-link"><%= i %></a></li>
+                                        <% } %>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- end card body-->
+            </div> <!-- end card -->
+        </div><!-- end col-->
+    </div>
+</div>
+
+<div id="invoice-container" style="display: none;">
+    <header>
+        <div class="logo">
+            <h1>HỆ THỐNG BOOK MY PITCH</h1>
+        </div>
+        <div class="info" style="text-align: right;">
+            <p>bookmypitch.vn</p>
+        </div>
+    </header>
+    <section class="client-info">
+        <div>
+            <h2>Khách hàng: <span id="customerName"></span></h2>
+            <p>Email: <span id="customerEmail"></span></p>
+            <p>Điện thoại: <span id="customerPhone"></span></p>
+        </div>
+        <div class="invoice-title">
+            <h2>HÓA ĐƠN ĐẶT SÂN</h2>
+            <p>Mã hóa đơn: <span id="code"></span></p>
+            <p>Ngày đặt: <span id="startDate"></span></p>
+        </div>
+    </section>
+    <h3>THÔNG TIN SÂN BÓNG</h3>
+    <table class="invoice-table">
+        <thead>
+            <tr>
+                <th>Tên sân</th>
+                <th>Loại sân</th>
+                <th>Đơn giá</th>
+                <th>Thành tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="pitchName"></td>
+                <td id="pitchPeople"></td>
+                <td id="pitchPrice"></td>
+                <td id="totalPrice"></td>
+            </tr>
+        </tbody>
+    </table>
+    <section style="margin-top: 25px;">
+        <h3>Tiện ích sân</h3>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Tiện ích</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Áo đấu</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;" id="shirt"></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Nước uống</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;" id="water"></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Trọng tài</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;" id="referee"></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Giày</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;" id="shoe"></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Phòng tắm</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;" id="bathroom"></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">Bóng</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;" id="ball"></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <section style="margin-top: 25px;">
+        <h3>Thời Gian Thuê Sân</h3>
+        <table style="width: 100%; border: none; margin-top: 10px;">
+            <thead style="border: none;">
+                <tr>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Ngày Đá</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;" id="dateplay">Trạng thái</th>
+                </tr>
+                <tr>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Giờ Ra Sân</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;" id="timeplay">Trạng thái</th>
+                </tr>
+            </thead>
+        </table>
+    </section>
+    <div class="total mt-4">
+        <p><b>Trạng thái đơn:</b> <span id="statusOrder"></span></p>
+        <p><b>Thanh toán:</b> <span id="statusPay"></span></p>
+        <p><b>Người lập HĐ:</b> <span id="fullname"><%= admin.FullName %></span></p>
+        <hr>
+        <p><b>Tổng cộng:</b> <span id="finalTotalPrice"></span></p>
+    </div>
+</div>
+
+<style>
+    @media print {
+
+        .page-content,
+        .vertical-menu,
+        .layout-wrapper {
+            display: none;
+        }
+
+        .invoice-container {
+            width: 100%;
+        }
+
+        .main-content {
+            margin-left: 0;
+            overflow: hidden;
+        }
+        
+    }
+
+    .invoice-container {
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .invoice-container header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .invoice-container header .logo h1 {
+        font-size: 24px;
+        color: #004080;
+    }
+
+    .invoice-container header .info p {
+        font-size: 16px;
+        text-align: right;
+    }
+
+    .client-info {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .client-info h2 {
+        margin: 0;
+        font-size: 20px;
+    }
+
+    .invoice-title h2 {
+        color: #FF6600;
+    }
+
+    .invoice-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    .invoice-table th,
+    .invoice-table td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .invoice-table th {
+        background: #f0f0f0;
+    }
+
+    .total {
+        text-align: right;
+        margin-bottom: 20px;
+    }
+
+    .total p {
+        margin: 5px 0;
+        font-size: 16px;
+    }
+
+
+
+    .invoice-container footer {
+        display: flex;
+        justify-content: space-between; /* Đẩy hai khối ra hai bên */
+        align-items: flex-start; /* Căn các phần tử theo đỉnh (trên cùng) */
+        gap: 20px; /* Khoảng cách giữa hai khối */
+    }
+
+    .invoice-container footer .payment-info,
+    .invoice-container footer .contact {
+        flex: 1; /* Chia đều không gian giữa hai khối */
+    }
+
+    .invoice-container footer h3 {
+        margin-bottom: 10px;
+        font-size: 1.2em;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function printInvoice(button) {
+        const orderId = $(button).data("id"); // Lấy ID hóa đơn từ nút
+        const apiUrl = `http://127.0.0.1:3001/admin/order/print/${orderId}`;
+
+        // Gọi API để lấy dữ liệu
+        $.get(apiUrl, function (data) {
+            if (!data) {
+                alert("Không tìm thấy dữ liệu hóa đơn.");
+                return;
+            }
+
+            // Gán dữ liệu vào các phần tử HTML
+            $("#customerName").text(data.customerName);
+            $("#customerEmail").text(data.customerEmail);
+            $("#customerPhone").text(data.customerPhone);
+            $("#code").text(data.code);
+            $("#startDate").text(data.time + " " + data.date);
+            $("#pitchName").text(data.pitch.name);
+            $("#pitchPeople").text("Sân đá " + data.pitch.people);
+            $("#pitchPrice").text(data.pitch.price.toLocaleString("vi-VN") + "₫ / 90 phút");
+            $("#totalPrice").text(data.totalPrice.toLocaleString("vi-VN") + "₫");
+            $("#dateplay").text(data.date);
+            $("#timeplay").text(data.time);
+            // Tiện ích sân
+            const facilities = data.pitch.facilities || {};
+            $("#shirt").text(facilities.shirt);
+            $("#water").text(facilities.water);
+            $("#referee").text(facilities.referee);
+            $("#shoe").text(facilities.shoe);
+            $("#bathroom").text(facilities.bathroom);
+            $("#ball").text(facilities.ball);
+
+            // Tổng tiền và trạng thái
+            $("#finalTotalPrice").text(data.totalPrice.toLocaleString("vi-VN") + "₫");
+            $("#statusOrder").text(data.statusOrder === 1 ? "Đã xử lý" : "Chưa xử lý");
+            $("#statusPay").text(data.statusPay === 1 ? "Đã thanh toán" : "Chưa thanh toán");
+
+            // Hiển thị hóa đơn và in
+            $("#invoice-container").show();
+            window.print();
+
+            // Ẩn hóa đơn sau khi in
+            $("#invoice-container").hide();
+        }).fail(function () {
+            alert("Không thể tải dữ liệu hóa đơn. Vui lòng thử lại.");
+        });
+    }
+</script>
+
+<%- include('../layouts/footer.ejs') %>

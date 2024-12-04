@@ -1,0 +1,142 @@
+<%- include('../layouts/header.ejs') %>
+<header class="page">
+    <div class="container">
+        <ul class="breadcrumbs d-flex flex-wrap align-content-center">
+            <li class="list-item">
+                <a class="link" href="/">Trang Chủ</a>
+            </li>
+
+            <li class="list-item">
+                <a class="link" href="/tra-cuu/">Tra Cứu</a>
+            </li>
+        </ul>
+        <h1 class="page_title">Thông Tin Đặt Sân</h1>
+    </div>
+</header>
+
+<main>
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col-xl-7">
+                <div class="container mt-3 mb-3">
+                    <div class="p-2">
+                        <h4>Thông Tin Người Đặt</h4>
+                    </div>  
+                    <hr>
+                    <div class="mt-4">
+                        <span><b>Tên người đặt:</b> <%= order.FullName %></span>
+                    </div>
+                    <div class="mt-4">
+                        <span><b>Email:</b> <%= order.Email %></span>
+                    </div>
+                    <div class="mt-4">
+                        <span>
+                            <b>Số điện thoại:</b>
+                            <%= order.Phone %>
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <span><b>Ngày thuê sân:</b> <%= order.Date %></span>
+                    </div>
+                    <div class="mt-4">
+                        <span><b>Thời gian:</b> <%= order.Time %></span>
+                    </div>
+
+                    <div class="p-2 mt-4">
+                        <h4>Trạng Thái</h4>
+                    </div> 
+                    <hr>
+                    <div class="mt-4">
+                        <span>
+                            <b>Thanh toán:</b> 
+                            <% if(order.StatusPay == 0){ %>
+                                Chưa thanh toán
+                            <% }else if(order.StatusPay == 1){ %>
+                                Đã thanh toán
+                            <% }else{ %>
+                                Đã hoàn tiền
+                            <% } %>
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <span>
+                            <b>Trạng thái sân:</b> 
+                            <% if(order.StatusOrder == 1){ %>
+                                Đang chờ duyệt
+                            <% }else if(order.StatusOrder == 2){ %>
+                                Đang chuẩn bị sân
+                            <% }else if(order.StatusOrder == 3){ %>
+                                Sân bóng đã sẵn sàng
+                            <% }else if(order.StatusOrder == 0){ %>
+                                Đã hủy sân
+                            <% } %>
+                        </span>
+                    </div>
+                    <% if(order.StatusPay == 0){ %>
+                        <div class="p-2 mt-4">
+                            <h4>Hình Ảnh Sân</h4>
+                        </div> 
+                        <hr>
+                        <div class="mt-4">
+                            <img src="<%= pitch.Avatar %>" alt="Hình ảnh" style="max-height: 460px;">
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+
+            <div class="col-xl-5" style="background: #fff; border-radius: 8px; border: 1px solid #808385; height: FIT-CONTENT;">
+                <div class="container mt-3 mb-3">
+                    <div class="p-2">
+                        <h4>Thông Tin Sân</h4>
+                    </div>  
+                    <hr>
+                    <div class="mt-4">
+                        <span><b>Tên Sân:</b> <%= pitch.Name %></span>
+                    </div>
+                    <div class="mt-4">
+                        <span><b>Số người:</b> Tối đa <%= pitch.People %> người</span>
+                    </div>
+                    <div class="mt-4">
+                        <span>
+                            <b>Loại sân:</b>
+                            <%= pitch.category.Name %>
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <span><b>Giá sân:</b> <%= pitch.Price.toLocaleString() %>đ / 90 phút</span>
+                    </div>
+                    
+                </div>
+
+                <div class="container mt-3 mb-3">
+                    <div class="p-2">
+                        <h4>Tổng Tiền</h4>
+                    </div>  
+                    <hr>
+                    <div class="mt-4">
+                        <span><b>Tạm tính: </b> <%= pitch.Price.toLocaleString() %>đ</span>
+                    </div>
+                    <div class="mt-4">
+                        <span>
+                            <b>Khuyến mãi: </b> 
+                            <% if (sale == 20) { %>
+                                20%
+                            <% }else if (sale == 30) { %>
+                                30%
+                            <% }else{ %>
+                                0%
+                            <% } %>
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <span><b>Tổng thanh toán: </b> <%= order.Total.toLocaleString() %>đ</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <a href="/dat-san/tra-cuu/" class="theme-element theme-element--accent btn">Tiếp Tục Tra Cứu</a>
+            </div>
+        </div>
+    </div>
+</main>
+<%- include('../layouts/footer.ejs') %>

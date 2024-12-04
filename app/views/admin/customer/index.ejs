@@ -1,0 +1,152 @@
+<%- include('../layouts/header.ejs') %>
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="mb-0 font-size-18">Khách Hàng</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="/admin">Trang Chủ</a></li>
+                            <li class="breadcrumb-item active">Khách Hàng</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Danh sách khách hàng</h4>
+                    <div id="basic-datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                            	<div class="table-responsive">
+                                    <% if(!admin.IsOwner){ %>
+                                        <table class="table mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th tabindex="0" aria-controls="basic-datatable"
+                                                    rowspan="1" colspan="1"
+                                                    >Tên Khách Hàng</th>
+                                                    <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+                                                        colspan="1"
+                                                        >Số Điện Thoại</th>
+                                                    <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+                                                        colspan="1"
+                                                        >Email</th>
+                                                    <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+                                                        colspan="1"
+                                                        >Tài Khoản</th>
+                                                    <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+                                                        colspan="1"
+                                                        >Loại Người Dùng</th>
+                                                    <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+                                                        colspan="1"
+                                                        >Ngày Tham Gia</th>
+                                                    <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+                                                        colspan="1"
+                                                        >Hành Động
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% customerList.forEach(function(customer) { %>
+                                                    <tr role="row" class="odd">
+                                                        <td style="white-space: unset;"><b><%= customer.FullName %></b></td>
+        
+                                                        <td style="white-space: unset;"><%= customer.Phone %></td>
+                                                        
+                                                        <td style="white-space: unset;"><%= customer.Email %></td>
+
+                                                        <td style="white-space: unset;"><%= customer.Username %></td>
+                                                        
+                                                        <td style="white-space: unset;">
+                                                            <% if(customer.IsOwner == 1){ %>
+                                                                <span class='badge badge-primary' style="font-size: 12px;">Chủ Sân Bóng</span>
+                                                            <% }else{ %>
+                                                                <span class='badge badge-danger' style="font-size: 12px;">Khách Thuê Sân</span>
+                                                            <% } %>
+                                                        </td>
+
+                                                        <td><%= customer.created %></td>
+
+                                                        <td>
+                                                            <% if(customer.IsOwner == -1){ %>
+                                                                <a class="btn btn-primary" href="/admin/customer/is-owner/<%= customer.Id %>"><i class="fas fa-futbol"></i> CẤP QUYỀN CHỦ SÂN</a> 
+                                                                <br>
+                                                                <br>
+                                                            <% }else if(customer.IsOwner == 1){ %>
+                                                                <a class="btn btn-danger" href="/admin/customer/is-owner/<%= customer.Id %>"><i class="fas fa-futbol"></i> HỦY QUYỀN CHỦ SÂN</a> 
+                                                                <br>
+                                                                <br>
+                                                            <% } %>    
+                                                            <a class="btn btn-light" href="/admin/pitch/delete//"><i class="bx bxs-trash-alt"></i> CẤM KHÁCH HÀNG</a>
+                                                        </td>
+                                                    </tr>
+                                                <% }); %>
+                                            </tbody>
+                                        </table>
+                                    <% }else{ %>
+                                        <table class="table mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th tabindex="0" aria-controls="basic-datatable"
+                                                    rowspan="1" colspan="1"
+                                                    >Tên Khách Hàng</th>
+                                                    <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+                                                        colspan="1"
+                                                        >Số Điện Thoại</th>
+                                                    <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+                                                        colspan="1"
+                                                        >Email</th>
+                                                    <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+                                                        colspan="1"
+                                                        >Lần Cuối Đặt Sân</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% orderList.forEach(function(order) { %>
+                                                    <tr role="row" class="odd">
+                                                        <td style="white-space: unset;"><b><%= order.FullName %></b></td>
+        
+                                                        <td style="white-space: unset;"><%= order.Phone %></td>
+                                                        
+                                                        <td style="white-space: unset;"><%= order.Email %></td>
+    
+                                                        <td>
+                                                            <span class='badge badge-danger' style="font-size: 12px;"><%= order.created %></span>
+                                                        </td>
+    
+                                                    </tr>
+                                                <% }); %>
+                                            </tbody>
+                                        </table>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="dataTables_paginate paging_simple_numbers" id="basic-datatable_paginate">
+                                    <ul class="pagination pagination-rounded">
+                                        <% for (let i = 1; i <= totalPages; i++) { %>
+                                       	    <li style="margin-right: 5px;" class="paginate_button page-item"><a href="/admin/customer/?page=<%= i %>" class="page-link"><%= i %></a></li>
+                                        <% } %>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- end card body-->
+            </div> <!-- end card -->
+        </div><!-- end col-->
+    </div>
+</div>
+
+<%- include('../layouts/footer.ejs') %>

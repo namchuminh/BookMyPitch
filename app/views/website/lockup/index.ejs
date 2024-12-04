@@ -1,0 +1,34 @@
+<%- include('../layouts/header.ejs') %>
+<header class="page">
+    <div class="container">
+        <ul class="breadcrumbs d-flex flex-wrap align-content-center">
+            <li class="list-item">
+                <a class="link" href="/">Trang Chủ</a>
+            </li>
+
+            <li class="list-item">
+                <a class="link" href="/dat-san/tra-cuu/">Tra Cứu</a>
+            </li>
+        </ul>
+        <h1 class="page_title">Tra Cứu</h1>
+    </div>
+</header>
+
+<main>
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <form method="POST" class="col-12">
+                <% if(locals.error){  %>
+                    <span style="width: 100%; color: black; font-weight: 500; margin-bottom: 40px;"><%= error %></span>
+                    <br>
+                    <br>
+                <% } %>
+                <input class="field required" id="feedbackName" type="text" name="Code" placeholder="Mã Đặt Sân của bạn" required style="width: 100%;">
+                <div class="mt-5" style="display: flex; justify-content: center; width: 100%;">
+                    <button class="theme-element theme-element--accent btn">Tra Cứu Thông Tin Đặt Sân</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<%- include('../layouts/footer.ejs') %>

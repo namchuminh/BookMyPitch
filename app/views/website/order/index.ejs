@@ -1,0 +1,140 @@
+<%- include('../layouts/header.ejs') %>
+<header class="page">
+    <div class="container">
+        <ul class="breadcrumbs d-flex flex-wrap align-content-center">
+            <li class="list-item">
+                <a class="link" href="/">Trang Chủ</a>
+            </li>
+
+            <li class="list-item">
+                <a class="link" href="/san-bong/">Sân Bóng</a>
+            </li>
+
+            <li class="list-item">
+                <a class="link" href="#">Đặt Sân</a>
+            </li>
+        </ul>
+        <h1 class="page_title">Đặt Sân</h1>
+    </div>
+</header>
+
+<main>
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col-xl-7">
+                <form class="contacts_form form d-sm-flex flex-wrap justify-content-between" action="/dat-san/thanh-toan/" method="POST">
+                    <% if(locals.error && !errorDay && !errorHour){  %>
+                        <span style="width: 100%; text-align: center; color: #333; font-weight: 500; margin-bottom: 20px;"><%= error %></span>
+                    <% } %>
+                    <input type="hidden" name="PitchId" value="<%= pitch.Id %>">
+                    <div class="field-wrapper" style="width: 100%;">
+                        <label class="label" for="feedbackName">
+                            <i class="icon-user icon"></i>
+                        </label>
+                        <% if(customer){ %>
+                            <input class="field required" id="feedbackName" type="text" name="FullName" placeholder="Họ tên người đặt" value="<%= customer.FullName %>" required>
+                        <% }else{ %>
+                            <input class="field required" id="feedbackName" type="text" name="FullName" placeholder="Họ tên người đặt" required>
+                        <% } %>
+                    </div>
+                    <div class="field-wrapper" style="width: 100%;">
+                        <label class="label" for="feedbackName">
+                            <i class="icon-phone icon"></i>
+                        </label>
+                        <% if(customer){ %>
+                            <input class="field required" id="feedbackName" type="text" name="Phone" placeholder="Số Điện Thoại" value="<%= customer.Phone %>" required>
+                        <% }else{ %>
+                            <input class="field required" id="feedbackName" type="text" name="Phone" placeholder="Số Điện Thoại" required>
+                        <% } %>
+                    </div>
+                    <div class="field-wrapper" style="width: 100%;">
+                        <label class="label" for="feedbackName">
+                            <i class="icon-email icon"></i>
+                        </label>
+                        <% if(customer){ %>
+                            <input class="field required" id="feedbackName" type="email" name="Email" placeholder="Email" value="<%= customer.Email %>" required> 
+                        <% }else{ %>
+                            <input class="field required" id="feedbackName" type="email" name="Email" placeholder="Email" required>
+                        <% } %>
+                    </div>
+                    <label class="label mb-3" for="dateStart">
+                        <b>Ngày thuê Sân</b>
+                    </label>
+                    <div class="field-wrapper" style="width: 100%;">
+                        <% if(startDate){ %>
+                            <input class="field required" id="dateStart" type="date" name="Start" value="<%=startDate %>" required> 
+                        <% }else{ %>
+                            <input class="field required" id="dateStart" type="date" name="Start" required>
+                        <% } %>
+                        <% if(errorDay == true){ %>
+                            <span class="alert alert-warning" style="color: red;">
+                                <%= error %>
+                            </span>
+                        <% } %>
+                    </div>
+                    <label class="label mb-3" for="dateEnd">
+                        <b>Thời gian</b>
+                    </label>
+                    <div class="field-wrapper" style="width: 100%;">
+                        <% if(endDate){ %>
+                            <input class="field required" id="dateEnd" type="time" name="End" value="<%=endDate %>" required> 
+                        <% }else{ %>
+                            <input class="field required" id="dateEnd" type="time" name="End" required>
+                        <% } %>
+                        <% if(errorHour == true){ %>
+                            <span class="alert alert-warning" style="color: red;">
+                                <%= error %>
+                            </span>
+                        <% } %>
+                    </div>
+                    <% if(customer){ %>
+                        <button class="btn theme-element theme-element--accent" type="submit" style="width: 100%; margin-top: 0px; margin-bottom: 30px;">Đặt Sân</button>
+                    <% }else{ %>
+                        <button class="btn theme-element" type="submit" style="width: 100%; margin-top: 0px; margin-bottom: 30px;">ĐẶT SÂN KHÔNG ĐĂNG NHẬP</button>
+                        <a class="btn theme-element theme-element--accent" href="/khach-hang/dang-nhap/" style="width: 100%; margin-top: 0px; margin-bottom: 30px;">ĐĂNG NHẬP ĐẶT SÂN</a>
+                    <% } %>
+                    
+                </form>
+            </div>
+
+            <div class="col-xl-5" style="background: #fff; border-radius: 8px; border: 1px solid #808385; height: FIT-CONTENT;">
+                <div class="container mt-3 mb-3">
+                    <div class="p-2">
+                        <h4>Thông Tin Sân</h4>
+                    </div>  
+                    <hr>
+                    <div class="mt-4">
+                        <span><b>Tên Sân:</b> <%= pitch.Name %></span>
+                    </div>
+                    <div class="mt-4">
+                        <span><b>Kiểu sân:</b> Sân đá <%= pitch.People %></span>
+                    </div>
+                    <div class="mt-4">
+                        <span>
+                            <b>Loại sân:</b>
+                            <%= pitch.category.Name %>
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <span><b>Giá sân:</b> <%= pitch.Price.toLocaleString() %>đ / 90 phút</span>
+                    </div>
+                    
+                </div>
+
+                <div class="container mt-3 mb-3">
+                    <div class="p-2">
+                        <h4>Khuyến Mãi</h4>
+                    </div>  
+                    <hr>
+                    <div class="mt-4">
+                        <span>Giảm tới <b>20%</b> khi thuê sân vào khung giờ 10h sáng - 15h chiều</span>
+                    </div>
+                    <div class="mt-4">
+                        <span>Giảm tới <b>30%</b> khi thuê sân vào khung giờ 22h đêm - 2h sáng</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<%- include('../layouts/footer.ejs') %>

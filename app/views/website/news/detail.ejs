@@ -1,0 +1,244 @@
+<%- include('../layouts/header.ejs') %>
+<link rel="stylesheet" href="/public/website/css/post.min.css" />
+<header class="page">
+    <div class="container">
+        <ul class="breadcrumbs d-flex flex-wrap align-content-center">
+            <li class="list-item">
+                <a class="link" href="/">Trang Chủ</a>
+            </li>
+
+            <li class="list-item">
+                <a class="link" href="/tin-tuc/">Tin Tức</a>
+            </li>
+
+            <li class="list-item">
+                <a class="link" href="/tin-tuc/"><%= news.Title %></a>
+            </li>
+        </ul>
+        <h1 class="page_title"><%= news.Title %></h1>
+    </div>
+</header>
+<main>
+    <div class="post section">
+        <div class="container sticky-parent d-lg-flex justify-content-between align-items-start" style="position: relative;">
+            <div class="post_main">
+                <div class="post_main-article">
+                    <div class="media media--main">
+                        <picture>
+                            <source data-srcset="<%= news.Avatar %>" srcset="<%= news.Avatar %>">
+                            <img class="lazy entered loaded" data-src="<%= news.Avatar %>" src="<%= news.Avatar %>" alt="media" data-ll-status="loaded">
+                        </picture>
+                    </div>
+                    <div class="post_main-article_metadata">
+                        <span class="item d-inline-flex align-items-center">
+                            <i class="icon-calendar icon"></i>
+                            <%= news.createdAt %>
+                        </span>
+                        <span class="item d-inline-flex align-items-center">
+                            <i class="icon-eye icon"></i>
+                            <span class="number">120</span>
+                            <span class="text">views</span>
+                        </span>
+                        <a class="item d-inline-flex align-items-center" href="#comments">
+                            <i class="icon-comment icon"></i>
+                            <span class="number">2</span>
+                            <span class="text">Comments</span>
+                        </a>
+                    </div>
+                    <div class="content mt-3">
+                        <%- news.Content %>
+                    </div>
+                </div>
+                <div class="post_main-footer">
+                    <div class="post_main-footer_tags d-flex flex-wrap align-items-center">
+                        <h4 class="title">Thẻ</h4>
+                        <ul class="list d-flex flex-wrap align-items-center">
+                            <% news.Tag.split(',').forEach(function(t) { %>
+                                <li class="list-item">
+                                    <a class="link underlined underlined--accent" href="#"><%= t.toUpperCase() %>,</a>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    </div>
+                    <% if(related.length >= 1){ %>
+                        <div class="post_main-footer_nav d-flex flex-wrap justify-content-between">
+                            <% if(related.length >= 1){ %>
+                                <a class="nav-block nav-block--prev h5 d-inline-flex align-items-center" href="/tin-tuc/<%= related[0].dataValues.Slug %>/">
+                                    <span class="theme-element theme-element--light">
+                                        <i class="icon-arrow_left icon"></i>
+                                    </span>
+                                    <span class="title"><%= related[0].dataValues.Title %></span>
+                                </a>
+                            <% } %>
+                            
+                            <% if(related.length >= 2){ %>
+                                <a class="nav-block nav-block--next h5 d-inline-flex flex-row-reverse align-items-center" href="/tin-tuc/<%= related[1].dataValues.Slug %>/">
+                                    <span class="theme-element theme-element--light">
+                                        <i class="icon-arrow_right icon"></i>
+                                    </span>
+                                    <span class="title"><%= related[1].dataValues.Title %></span>
+                                </a>
+                            <% } %>
+                        </div>
+                    <% } %>
+                    <div class="post_main-footer_author d-sm-flex">
+                        <div class="media">
+                            <picture>
+                                <source data-srcset="/public/website/img/logo.png" srcset="/public/website/img/logo.png">
+                                <img class="lazy entered loaded" data-src="/public/website/img/logo.png" src="/public/website/img/logo.png" alt="media" data-ll-status="loaded">
+                            </picture>
+                        </div>
+                        <div class="main">
+                            <span class="name h4">MyPitch</span>
+                            <p class="bio">
+                                Thông tin tin tức về sân bóng và dịch vụ cho thuê sân bóng trực tuyến, với nhiều tiện nghi cho người thuê mang đến một trận đấu hấp dẫn.
+                            </p>
+                            <ul class="socials d-flex align-items-center">
+                                <li class="list-item">
+                                    <a class="link" href="">
+                                        <i class="icon-facebook"></i>
+                                    </a>
+                                </li>
+                                <li class="list-item">
+                                    <a class="link" href="">
+                                        <i class="icon-instagram"></i>
+                                    </a>
+                                </li>
+                                <li class="list-item">
+                                    <a class="link" href="">
+                                        <i class="icon-twitter"></i>
+                                    </a>
+                                </li>
+                                <li class="list-item">
+                                    <a class="link" href="">
+                                        <i class="icon-whatsapp"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="widgets" data-sticky="true" data-stop="" style="position: static; left: auto; width: 350px;">
+                <div class="widgets_item widgets_item--search">
+                    <form class="form d-flex" action="#" method="get" id="newsSearch" data-type="search">
+                        <input class="field required" id="newsSearchQuery" type="text" placeholder="Tìm kiếm">
+                        <button class="btn theme-element--accent" type="submit">
+                            <i class="icon-search icon"></i>
+                        </button>
+                    </form>
+                </div>
+                <div class="widgets_item widgets_item--categories">
+                    <h4 class="widgets_item-header">Chuyên Mục</h4>
+                    <ul class="list">
+                        <% category.forEach(function(c) { %>
+                            <% if(news.category.dataValues.Id == c.Id){ %>
+                                <li class="list-item d-flex align-items-center current">
+                                    <a class="link"><%= c.Name %></a>
+                                </li>
+                            <% }else{ %>
+                                <li class="list-item d-flex align-items-center">
+                                    <a class="link"><%= c.Name %></a>
+                                </li>
+                            <% } %>
+                        <% }) %>
+                    </ul>
+                </div>
+                <div class="widgets_item widgets_item--recommended">
+                    <h4 class="widgets_item-header">Tin Tức Mới</h4>
+                    <ul class="list">
+                        <% newNews.forEach(function(n) {%>
+                            <li class="list-item d-flex align-items-center">
+                                <div class="media">
+                                    <picture>
+                                        <source data-srcset="<%= n.Avatar %>" srcset="<%= n.Avatar %>">
+                                        <img style="width: 90px; height: 90px;" class="lazy entered loaded" data-src="<%= n.Avatar %>" src="<%= n.Avatar %>" alt="media" data-ll-status="loaded">
+                                    </picture>
+                                </div>
+                                <div class="main d-flex flex-column">
+                                    <a class="main_title h5" href="/tin-tuc/<%= n.Slug %>/"><%= n.Title %></a>
+                                    <span class="main_date"><i class="icon-calendar icon"></i> <%= n.created %></span>
+                                </div>
+                            </li>
+                        <% }) %>
+                    </ul>
+                </div>
+                <div class="widgets_item widgets_item--tags">
+                    <h4 class="widgets_item-header">Thẻ</h4>
+                    <ul class="list d-flex flex-wrap">
+                        <% tag.forEach(function(t) { %>
+                            <li class="list-item">
+                                <a class="link underlined underlined--accent" href="#"><%= t.toUpperCase() %>,</a>
+                            </li>
+                        <% }) %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- latest news post aside start -->
+    <aside>
+        <section class="latest section section--blockbg">
+            <div class="block"></div>
+            <div class="container">
+                <div class="latest_header d-sm-flex justify-content-between align-items-center">
+                    <h2 class="latest_header-title aos-init" data-aos="fade-right">Tin Tức Liên Quan</h2>
+                    <div class="wrapper aos-init" data-aos="fade-left">
+                        <a class="btn theme-element theme-element--light" href="/tin-tuc/">Xem tất cả</a>
+                    </div>
+                </div>
+                <ul class="latest_list d-md-flex flex-wrap">
+
+                    <% related.forEach(function(r) { %>
+                        <li class="latest_list-item col-md-6 col-xl-4 aos-init" data-order="1" data-aos="fade-up">
+                            <div class="item-wrapper d-md-flex flex-column">
+                                <div class="media">
+                                    <picture>
+                                        <source data-srcset="<%= r.Avatar %>" srcset="<%= r.Avatar %>">
+                                        <img class="lazy" data-src="<%= r.Avatar %>" src="<%= r.Avatar %>" alt="media">
+                                    </picture>
+                                    <span class="media_label media_label--left"> <%= r.category.dataValues.Name %> </span>
+                                </div>
+                                <div class="main d-md-flex flex-column justify-content-between flex-grow-1">
+                                    <a class="main_title h4" href="/tin-tuc/<%= r.Slug %>/" data-shave="true"><%= r.Title %></a>
+                                    <p class="main_preview">
+                                        <%- r.Content %>
+                                    </p>
+                                    <div class="main_metadata">
+                                        <span class="main_metadata-item d-inline-flex align-items-center">
+                                            <i class="icon-calendar icon"></i>
+                                            Ngày đăng: <%- r.created %>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    <% }) %>
+                </ul>
+            </div>
+        </section>
+    </aside>
+    <!-- latest news post aside end -->
+</main>
+
+<style>
+    .content p {
+        margin-bottom: 20px;
+    }
+
+    .content{
+        line-height: 40px;
+    }
+
+    .latest_list-item .item-wrapper .main_preview {
+        margin-bottom: 0px;
+    }
+
+    .latest_list-item .item-wrapper .main_metadata-item:last-of-type {
+        margin-top: 15px;
+    }
+</style>
+<%- include('../layouts/footer.ejs') %>
+
+

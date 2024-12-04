@@ -1,0 +1,101 @@
+<%- include('../layouts/header.ejs') %>
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-0 font-size-18">Sân Bóng</h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="/admin/">Trang Chủ</a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="/admin/pitch/">Sân Bóng</a></li>
+                                <li class="breadcrumb-item active">Quy Tắc Sân Bóng</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Quy tắc cho Sân: <%= pitch.Name %></h4>
+                        <div id="basic-datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <form method="POST">
+                                                <div class="form-group">
+                                                    <label for="simpleinput">Quy Tắc 1</label>
+                                                    <% if(ruleCount >= 1){ %>
+                                                        <textarea name="r1" placeholder="Nhập quy tắc 1" class="form-control" rows="3"><%= rule[0].dataValues.Rules %></textarea>
+                                                    <% }else{ %>
+                                                        <textarea name="r1" placeholder="Nhập quy tắc 1" class="form-control" rows="3"></textarea>
+                                                    <% }%>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="simpleinput">Quy Tắc 2</label>
+                                                    <% if(ruleCount >= 2){ %>
+                                                        <textarea name="r2" placeholder="Nhập quy tắc 2" class="form-control" rows="3"><%= rule[1].dataValues.Rules %></textarea>
+                                                    <% }else{ %>
+                                                        <textarea name="r2" placeholder="Nhập quy tắc 2" class="form-control" rows="3"></textarea>
+                                                    <% }%>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="simpleinput">Quy Tắc 3</label>
+                                                    <% if(ruleCount >= 3){ %>
+                                                        <textarea name="r3" placeholder="Nhập quy tắc 3" class="form-control" rows="3"><%= rule[2].dataValues.Rules %></textarea>
+                                                    <% }else{ %>
+                                                        <textarea name="r3" placeholder="Nhập quy tắc 3" class="form-control" rows="3"></textarea>
+                                                    <% }%>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="simpleinput">Quy Tắc 4</label>
+                                                    <% if(ruleCount >= 4){ %>
+                                                        <textarea name="r4" placeholder="Nhập quy tắc 4" class="form-control" rows="3"><%= rule[3].dataValues.Rules %></textarea>
+                                                    <% }else{ %>
+                                                        <textarea name="r4" placeholder="Nhập quy tắc 4" class="form-control" rows="3"></textarea>
+                                                    <% }%>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="simpleinput">Quy Tắc 5</label>
+                                                    <% if(ruleCount >= 5){ %>
+                                                        <textarea name="r5" placeholder="Nhập quy tắc 5" class="form-control" rows="3"><%= rule[4].dataValues.Rules %></textarea>
+                                                    <% }else{ %>
+                                                        <textarea name="r5" placeholder="Nhập quy tắc 5" class="form-control" rows="3"></textarea>
+                                                    <% }%>
+                                                </div>
+
+                                                <a href="/admin/pitch/"
+                                                    class="btn btn-secondary waves-effect waves-light">Quay Lại</a>
+                                                <button type="submit"
+                                                    class="btn btn-primary waves-effect waves-light">Cập Nhật
+                                                    Quy Tắc</button>
+                                            </form>
+                                        </div>
+                                        <!-- end card-body-->
+                                    </div>
+                                    <!-- end card -->
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div> <!-- end card body-->
+                </div> <!-- end card -->
+            </div><!-- end col-->
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <%- include('../layouts/footer.ejs') %>

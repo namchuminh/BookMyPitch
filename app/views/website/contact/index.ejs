@@ -1,0 +1,117 @@
+<%- include('../layouts/header.ejs') %>
+<link rel="stylesheet" href="/public/website/css/contacts.min.css" />
+<header class="page">
+    <div class="container">
+        <ul class="breadcrumbs d-flex flex-wrap align-content-center">
+            <li class="list-item">
+                <a class="link" href="/">Trang Chủ</a>
+            </li>
+
+            <li class="list-item">
+                <a class="link" href="/lien-he/">Liên Hệ</a>
+            </li>
+        </ul>
+        <h1 class="page_title">Thông Tin Liên Hệ</h1>
+    </div>
+</header>
+
+<main>
+
+    <section class="contacts_main section">
+        <div class="container container--contacts d-xl-flex align-items-center">
+            <div class="contacts_info col-xl-7 aos-init aos-animate" data-aos="fade-up" style="background: unset;">
+                <div class="contacts_info-header">
+                    <h2 class="contacts_info-header_title">Thông Tin Liên Hệ</h2>
+                    <p class="contacts_info-header_text">
+                        Liên hệ với chúng tôi bất kể khi nào bạn cần thiết hoặc gặp phải vấn đề!
+                    </p>
+                </div>
+                <div class="contacts_info-main">
+                    <div class="contacts_info-main_block d-sm-flex align-items-start">
+                        <span class="icon-call icon">
+                            <svg width="28" height="29" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M26.9609 19.75L21 17.1797C20.7812 17.125 20.5625 17.0703 20.3438 17.0703C19.7969 17.0703 19.3047 17.2891 19.0312 17.6719L16.625 20.625C12.7969 18.7656 9.73438 15.7031 7.875 11.875L10.8281 9.46875C11.2109 9.19531 11.4297 8.70312 11.4297 8.15625C11.4297 7.9375 11.375 7.71875 11.3203 7.5L8.75 1.53906C8.47656 0.9375 7.875 0.5 7.21875 0.5C7.05469 0.5 6.94531 0.554688 6.83594 0.554688L1.3125 1.86719C0.546875 2.03125 0 2.6875 0 3.50781C0 17.3438 11.2109 28.5 24.9922 28.5C25.8125 28.5 26.4688 27.9531 26.6875 27.1875L27.9453 21.6641C27.9453 21.5547 27.9453 21.4453 27.9453 21.2812C27.9453 20.625 27.5625 20.0234 26.9609 19.75ZM24.9375 26.75C12.1406 26.75 1.75 16.3594 1.75 3.5625L7.16406 2.30469L9.67969 8.15625L5.6875 11.4375C8.36719 17.0703 11.4297 20.1328 17.1172 22.8125L20.3438 18.8203L26.1953 21.3359L24.9375 26.75Z" fill="currentColor"></path>
+                            </svg>
+                        </span>
+                        <div class="wrapper d-flex flex-column">
+                            <a class="link" href="tel:+1234567890">099.999.999</a>
+                            <a class="link" href="tel:+1234567890">099.999.999</a>
+                        </div>
+                    </div>
+                    <div class="contacts_info-main_block d-sm-flex align-items-start">
+                        <i class="icon-email icon"></i>
+                        <div class="wrapper d-flex flex-column">
+                            <a class="link" href="mailto:example@domain.com">contact@example.com</a>
+                            <a class="link" href="mailto:example@domain.com">contact@example.com</a>
+                        </div>
+                    </div>
+                    <div class="contacts_info-main_block d-sm-flex align-items-start">
+                        <i class="icon-location icon"></i>
+                        <div class="wrapper d-flex flex-column">
+                            <a class="link">Địa Chỉ 1, Quận Abc, Thành Phố ABC</a>
+                            <a class="link">Địa Chỉ 2, Quận Abc, Thành Phố ABC</a>
+                        </div>
+                    </div>
+                    <div class="contacts_info-main_block d-sm-flex align-items-start">
+                        <i class="icon-clock icon"></i>
+                        <div class="wrapper d-flex flex-column">
+                            <a class="link">Giờ Mở Cửa: 8h00 sáng</a>
+                            <a class="link">Giờ Đóng Cửa: 24h00 giờ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contacts_info col-xl-7 aos-init aos-animate" data-aos="fade-up" style="box-shadow: unset;">
+                <div class="contacts_info-header">
+                    <h2 class="contacts_info-header_title">Gửi Liện Hệ</h2>
+                    <p class="contacts_info-header_text">
+                        <% if(error != ""){ %>
+                            <p style="color: red;"><%= error %></p>
+                        <% }if(success != ""){ %>
+                            <p style="color: #235784;"><%= success %></p>
+                        <% }else{ %>
+                            <% if(customer){ %>
+                                Nhập nội dung liên hệ của bạn để chúng tôi có thể chuẩn bị và hỗ trợ vấn đề của bạn một cách sớm nhất!
+                            <% }else{ %>
+                                Bạn cần đăng nhập để thực hiện gửi liên hệ cho chúng tôi! <a href="/khach-hang/dang-nhap/">Đăng Nhập ?</a> 
+                            <% } %>
+                        <% } %>
+                    </p>
+                </div>
+                <div class="contacts_info-main">
+                    <div class="contacts_info-main_block d-sm-flex align-items-start">
+                        <form class="contacts_form form d-sm-flex flex-wrap justify-content-between" action="/lien-he/post/" method="post">
+                            <div class="field-wrapper">
+                                <label class="label" for="feedbackName">
+                                    <i class="icon-user icon" style="margin-right: 0px;top: 0px;"></i>
+                                </label>
+                                <% if(customer){ %>
+                                    <input class="field required" id="feedbackName" type="text" placeholder="Họ tên" value="<%= customer.FullName %>" disabled>
+                                <% }else{ %>
+                                    <input class="field required" id="feedbackName" type="text" placeholder="Họ tên">
+                                <% } %>
+                            </div>
+                            <div class="field-wrapper">
+                                <label class="label" for="feedbackEmail">
+                                    <i class="icon-phone icon" style="margin-right: 0px;top: 0px;"></i>
+                                </label>
+                                <% if(customer){ %>
+                                    <input class="field required" id="feedbackName" type="text" placeholder="Họ tên" value="<%= customer.Phone %>" disabled>
+                                <% }else{ %>
+                                    <input class="field required" id="feedbackName" type="text" placeholder="Họ tên">
+                                <% } %>
+                                <% if(customer){ %>
+                                    <input type="hidden" value="<%= customer.Id %>" name="id">
+                                <% } %>
+                            </div>
+                            <textarea class="field textarea required" id="feedbackMessage" name="message" placeholder="Nội dung liên hệ"></textarea>
+                            <button class="btn theme-element theme-element--accent" type="submit">Liên Hệ</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+<%- include('../layouts/footer.ejs') %>
