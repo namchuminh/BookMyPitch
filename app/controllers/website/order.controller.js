@@ -4,6 +4,8 @@ const Pitchs = require("../../models/pitchs.models");
 const Category = require("../../models/category.models");
 const nodemailer = require('nodemailer');
 const moment = require('moment');
+const { Op } = require('sequelize'); // Import các toán tử từ Sequelize
+
 
 class orderController {
 
@@ -12,7 +14,7 @@ class orderController {
         const { PitchId, startDate, endDate } = req.body;
         try {
             const pitch = await Pitchs.findOne({
-                where: { Id: PitchId, Status: 1 },
+                where: { Id: PitchId },
                 include: [
                     {
                         model: Category,
@@ -64,6 +66,10 @@ class orderController {
             const orders = await Order.findAll({
                 where: {
                     PitchId: PitchId,
+                    [Op.or]: [
+                        { StatusOrder: 2 },
+                        { StatusOrder: 3 }
+                    ]
                 },
             });
 
@@ -221,6 +227,10 @@ class orderController {
             const orders = await Order.findAll({
                 where: {
                     PitchId: PitchId,
+                    [Op.or]: [
+                        { StatusOrder: 2 },
+                        { StatusOrder: 3 }
+                    ]
                 },
             });
 

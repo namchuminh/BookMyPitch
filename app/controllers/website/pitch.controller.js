@@ -18,7 +18,7 @@ class pitchController {
 
             // Điều kiện tìm kiếm
             const whereCondition = {
-                Status: 1, // Luôn kiểm tra trạng thái
+                
             };
 
             // Nếu có điều kiện tìm kiếm theo Address
